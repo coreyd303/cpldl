@@ -10,6 +10,7 @@ feature "Admin user logs in" do
       @english = FactoryGirl.create(:language)
       @spanish = FactoryGirl.create(:spanish_lang)
       @org = FactoryGirl.create(:organization)
+      switch_to_subdomain("chipublib")
       @user.add_role(:admin, @org)
     end
 

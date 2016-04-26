@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Admin::UsersController do
   before(:each) do
-    @request.host = "www.test.host"
+    @request.host = "chipublib.test.host"
     @admin = FactoryGirl.create(:admin_user)
     @user = FactoryGirl.create(:user)
     org = FactoryGirl.create(:organization)
@@ -12,8 +12,8 @@ describe Admin::UsersController do
   end
 
   describe "PATCH #change_user_roles" do
-    xit "updates the role" do
-      patch :change_user_roles, { id: @user.id.to_param, value: "Trainer" }
+    it "updates the role" do
+      patch :change_user_roles, { id: @user.id, value: "Trainer" }
       expect(@user.current_roles).to eq("trainer")
 
       patch :change_user_roles, { id: @user.id.to_param, value: "Admin" }

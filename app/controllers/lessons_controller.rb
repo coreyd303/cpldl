@@ -74,10 +74,12 @@ class LessonsController < ApplicationController
     end
   end
 
+  # :nocov:
   def lesson_complete
     @current_lesson = @course.lessons.friendly.find(params[:lesson_id])
     @next_lesson = @course.lessons.find(@course.next_lesson_id(@current_lesson.id))
   end
+  # :nocov:
 
   def complete
     lesson = @course.lessons.friendly.find(params[:lesson_id])

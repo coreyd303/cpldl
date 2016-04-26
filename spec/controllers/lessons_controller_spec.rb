@@ -130,4 +130,29 @@ describe LessonsController do
     end
   end
 
+  describe "show by pub_status" do
+    it "redirects if lesson has status D" do
+      @lesson1.update_attribute(:pub_status, "D")
+      @lesson1.reload
+      get :show, course_id: @course1.to_param, id: @lesson1.id
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("That lesson is not avaliable at this time.")
+    end
+
+    it "redirects if lesson has status A" do
+      @lesson1.update_attribute(:pub_status, "A")
+      @lesson1.reload
+      get :show, course_id: @course1.to_param, id: @lesson1.id
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("That lesson is no longer avaliable.")
+    end
+
+    it "get show if lesson has status P" do
+      @lesson1.update_attribute(:pub_status, "P")
+      @lesson1.reload
+      get :show, course_id: @course1.to_param, id: @lesson1.id
+      expect(assigns(:lesson)).to eq(@lesson1)
+    end
+  end
+
 end
